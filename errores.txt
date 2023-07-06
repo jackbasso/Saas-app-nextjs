@@ -1,0 +1,11 @@
+
+TOP LEVEL EXPERIMENTAL ERROR:
+
+SOLUCION:
+En next.config.js se agregó:
+// added toplevelexperimental error
+  experimental: { appDir: true },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
+  },

@@ -1,1 +1,37 @@
-export default function Benefits() {}
+const benefits = [
+  {
+    title: "One low price",
+    subtitle: "Save big. Get everything with a super low monthly subscription."
+  },
+  {
+    title: "No limits",
+    subtitle: "Get complet access to everything on the site."
+  },
+  {
+    title: "Cancel Anytime",
+    subtitle: "Pause or stop your subscription, whenever you like."
+  }
+]
+
+
+export default function Benefits() {
+  return (
+    <div className="bg-black">
+      <div className="column-padding">
+        <div className="content-grid xl">
+          { benefits.map(benefit => (
+            <div className="spacing-base" key={benefit.title}>
+            <h3>
+              {benefit.title}
+              <br />
+            </h3>
+            <div>
+              {benefit.subtitle}
+            </div>
+          </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
