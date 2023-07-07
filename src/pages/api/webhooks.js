@@ -2,7 +2,6 @@ import getRawBody from "raw-body";
 import { stripe } from "src/pricing/utils/stripe";
 import { supabase } from "supabase";
 
-
 export const config = {
   api: {
     bodyParser: false,
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
   const rawBody = await getRawBody(req, {limit: "2mb"}); // error inside the try catch, pending test
   let event;
 
-  console.log(rawBody)
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, signingSecret);
 
@@ -34,8 +32,6 @@ export default async function handler(req, res) {
         await deleteSubscription(event)
         break;
     }
-
-    
     res.send({success: true});
   } catch (error) {
     console.log(error.message);
