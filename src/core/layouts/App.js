@@ -3,7 +3,7 @@ import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 
 // Hide Navbar after checkout
-const hideNavbarPages = ['/success']
+const hideNavbarPages = ['/success', '/login']
 
 export default function AppLayout({ children }) {
   const router = useRouter()
