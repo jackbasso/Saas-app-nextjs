@@ -1,3 +1,6 @@
+# start ngrok to use stripe from my localhost
+npx ngrok http 3000
+
 # Build a SaaS app with React
 
 ## Technologies Used

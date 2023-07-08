@@ -1,7 +1,6 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 
-
 export default function LoginForm({setSubmitted}) {
   const supabaseClient = useSupabaseClient();
   const [error, setError] = useState('');
