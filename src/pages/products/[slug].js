@@ -1,19 +1,46 @@
 import PromoCard from "src/products/components/PromoCard";
 import { supabase } from "supabase";
 import Image from "next/image";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
+import SubscriberCard from "src/products/components/SubscriberCard";
 
 export default function ProductPage({ product }) {
-  console.log(product)
+  const [productContent, setProductContent] = useState(null);
+  const session = useSession();
+  const supabaseClient = useSupabaseClient();
+
+  useEffect(() => {
+    async function getProductContent() {
+      const { data: productContent } = await supabaseClient.from('product_content')
+      .select('*').eq('id', product.product_content_id).single();
+      setProductContent(productContent)
+    };
+
+    getProductContent()
+  }, [supabaseClient])
+  
   return (
     <section className="product-section">
       <article className="product">
         <div className="product-wrap">
-          <Image 
+          {productContent?.download_url && (
+            <a href={`/assets/${productContent.download_url}`} download className="download-link large-button">
+              <span className="large-button-text">Download</span>
+            </a>
+          )}
+          { productContent?.video_url ? (
+            <ReactPlayer control url={productContent.video_url} />
+          ) : (
+            <Image 
             width={1000}
             height={1000}
             src={`/assets/${product.slug}.png`}
             alt={product.name}
           />
+          )}
+          
         </div>
         <section>
           <header>
@@ -25,8 +52,8 @@ export default function ProductPage({ product }) {
             </div>
           </section>
         </section>
-        <section>
-          <PromoCard />
+        <section> 
+          { session ? <SubscriberCard /> : <PromoCard /> }
         </section>
       </article>
     </section>  
